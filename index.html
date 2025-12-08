@@ -1,716 +1,206 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>X-GUI CLIENT FOR BLOOKET</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>X-GUI — Xullys Modernized Client</title>
 
-    <!-- tsParticles -->
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@600;900&display=swap" rel="stylesheet">
 
-    <!-- MAIN STYLE (will be added in PART 2) -->
-    <style>
-    /* ================================================================
-   PART 2 — MASSIVE MODERN CSS FOR XULLYS INTERFACE
-   Ultra-sleek | neon | glass | animation-heavy
-   ================================================================ */
+  <!-- tsParticles -->
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js" defer></script>
 
-/* -------- RESET -------- */
-html, body {
-    scroll-behavior: smooth;
-    background: #0a0b10;
-    color: #ffffff;
-}
+  <style>
+    :root{
+      --bg:#f5f6fa;
+      --panel:#ffffff;
+      --glass:rgba(255,255,255,0.8);
+      --accent-1:#3b82f6;
+      --accent-2:#06b6d4;
+      --text-dark:#1f2937;
+      --text-muted:#6b7280;
+      --radius:16px;
+      --max-width:1200px;
+      --gap:32px;
+    }
 
-/* -------- PARTICLES BACKGROUND -------- */
-#tsparticles {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -10;
-}
+    /* Reset & Base */
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;padding:0;}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      background:var(--bg);
+      color:var(--text-dark);
+      overflow-x:hidden;
+      line-height:1.6;
+    }
 
-/* -------- NAVBAR -------- */
-.nav {
-    width: 100%;
-    height: 80px;
-    padding: 0 60px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    top: 0; left: 0;
-    z-index: 100;
-    backdrop-filter: blur(12px);
-    background: rgba(15, 15, 25, 0.35);
-    border-bottom: 1px solid rgba(120,120,255,0.2);
-    transition: 0.3s ease;
-}
+    /* Particles */
+    #tsparticles{position:fixed;inset:0;width:100vw;height:100vh;z-index:-1;pointer-events:none}
 
-.nav.scrolled {
-    background: rgba(10, 10, 20, 0.55);
-}
+    /* Layout wrapper */
+    .wrap{max-width:var(--max-width);margin:0 auto;padding:100px 32px 80px;}
 
-.nav-link {
-    margin-left: 25px;
-    text-decoration: none;
-    font-size: 1rem;
-    color: #bbb;
-    transition: 0.25s;
-}
-.nav-link:hover {
-    color: #fff;
-    text-shadow: 0 0 5px #7f5bff;
-}
+    /* NAV */
+    .nav{position:fixed;inset:0 0 auto 0;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;z-index:50;backdrop-filter:blur(12px);background:var(--glass);border-bottom:1px solid rgba(0,0,0,0.08)}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand svg{height:36px;width:auto}
+    .brand .label{font-family:Orbitron,Inter;font-weight:900;font-size:18px;color:var(--accent-1)}
 
-/* -------- GLOBAL SECTIONS -------- */
-.section {
-    width: 100%;
-    min-height: 100vh;
-    padding: 150px 70px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
-}
+    .nav-links{display:flex;gap:20px;align-items:center}
+    .nav a{color:var(--text-muted);text-decoration:none;padding:8px 14px;border-radius:12px;font-weight:600;font-size:14px}
+    .nav a:hover{color:#fff;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));box-shadow:0 4px 20px rgba(0,0,0,0.1)}
 
-.section-title {
-    font-size: 3.4rem;
-    margin-bottom: 50px;
-    background: linear-gradient(90deg, #7f5bff, #4dc7ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    letter-spacing: 2px;
-    text-shadow: 0 0 20px rgba(100, 80, 255, 0.3);
-}
+    /* HERO */
+    .hero{display:grid;grid-template-columns:1fr 400px;gap:var(--gap);align-items:center;padding-top:60px}
+    .hero .title{font-family:Orbitron,Inter;font-size:46px;line-height:1.05;margin:0;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));-webkit-background-clip:text;color:transparent}
+    .hero p{color:var(--text-muted);margin:16px 0 0;max-width:60ch}
+    .cta{display:inline-flex;align-items:center;gap:12px;margin-top:20px;padding:14px 24px;border-radius:14px;background:linear-gradient(135deg,var(--accent-1),var(--accent-2));color:#fff;font-weight:700;text-decoration:none;transition:0.3s ease}
+    .cta:hover{transform:scale(1.05)}
 
-/* ================================================================
-   HERO SECTION
-   ================================================================ */
-.hero-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 180px;
-}
+    /* Sections */
+    section{padding:72px 0}
+    .section-title{font-size:32px;margin:0 0 24px;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));-webkit-background-clip:text;color:transparent}
 
-.hero-title {
-    font-size: 4.5rem;
-    font-weight: 900;
-    background: linear-gradient(120deg, #7f5bff, #4dc7ff, #8df);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    letter-spacing: 3px;
-    animation: heroGlow 3s ease-in-out infinite alternate;
-}
-@keyframes heroGlow {
-    from { text-shadow: 0 0 15px rgba(127,91,255,0.4); }
-    to   { text-shadow: 0 0 40px rgba(77,199,255,0.7); }
-}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--gap)}
+    .card{padding:24px;border-radius:var(--radius);background:var(--panel);border:1px solid rgba(0,0,0,0.05);box-shadow:0 4px 20px rgba(0,0,0,0.05);transition:transform .28s ease,box-shadow .28s ease}
+    .card:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(0,0,0,0.1)}
+    .muted{color:var(--text-muted);font-size:0.95rem}
 
-.hero-subtitle {
-    max-width: 550px;
-    margin-top: 20px;
-    color: #ccc;
-    font-size: 1.2rem;
-    line-height: 1.5;
-}
+    /* footer */
+    footer{padding:40px 32px;text-align:center;color:var(--text-muted);border-top:1px solid rgba(0,0,0,0.05);margin-top:60px}
 
-.hero-button {
-    display: inline-block;
-    margin-top: 30px;
-    padding: 15px 40px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(140, 90, 255, 0.4);
-    border-radius: 14px;
-    color: #fff;
-    text-decoration: none;
-    font-weight: 600;
-    transition: 0.3s ease;
-}
-.hero-button:hover {
-    background: rgba(127,91,255,0.3);
-    border-color: rgba(127,91,255,0.7);
-    box-shadow: 0 0 20px #7f5bff;
-}
-
-/* -------- 3D CUBE -------- */
-.hero-3d {
-    width: 350px;
-    height: 350px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.cube {
-    width: 200px;
-    height: 200px;
-    position: relative;
-    transform-style: preserve-3d;
-    animation: spinCube 12s linear infinite;
-}
-@keyframes spinCube {
-    from { transform: rotateX(-20deg) rotateY(0deg); }
-    to   { transform: rotateX(-20deg) rotateY(360deg); }
-}
-
-.cube-face {
-    position: absolute;
-    width: 200px; height: 200px;
-    border: 3px solid rgba(127,91,255,0.6);
-    background: rgba(255,255,255,0.02);
-    border-radius: 12px;
-    backdrop-filter: blur(6px);
-    box-shadow: 0 0 12px rgba(127,91,255,0.3);
-}
-
-.front  { transform: translateZ(100px); }
-.back   { transform: rotateY(180deg) translateZ(100px); }
-.left   { transform: rotateY(-90deg) translateZ(100px); }
-.right  { transform: rotateY(90deg) translateZ(100px); }
-.top    { transform: rotateX(90deg) translateZ(100px); }
-.bottom { transform: rotateX(-90deg) translateZ(100px); }
-
-/* ================================================================
-   DOWNLOADS SECTION
-   ================================================================ */
-.download-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    grid-gap: 35px;
-}
-
-.download-card {
-    padding: 30px;
-    border-radius: 18px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(150,150,255,0.2);
-    backdrop-filter: blur(12px);
-    transition: 0.3s ease;
-}
-.download-card:hover {
-    background: rgba(120,90,255,0.15);
-    border-color: rgba(120,90,255,0.45);
-    box-shadow: 0 0 25px rgba(120,90,255,0.5);
-}
-
-.download-title {
-    font-size: 1.6rem;
-    background: linear-gradient(90deg, #8af, #dff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.download-desc {
-    margin-top: 10px;
-    color: #bbb;
-}
-
-.download-button {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 12px 30px;
-    font-size: 1rem;
-    text-decoration: none;
-    color: #fff;
-    background: rgba(120,90,255,0.25);
-    border: 1px solid rgba(120,90,255,0.5);
-    border-radius: 12px;
-    transition: 0.3s ease;
-}
-.download-button:hover {
-    background: rgba(120,90,255,0.4);
-    border-color: rgba(150,120,255,0.7);
-}
-
-/* ================================================================
-   DOCS SECTION
-   ================================================================ */
-.docs-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    grid-gap: 35px;
-}
-
-.doc-panel {
-    padding: 30px;
-    border-radius: 18px;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(150,150,255,0.15);
-    backdrop-filter: blur(12px);
-    transition: 0.25s ease;
-}
-.doc-panel:hover {
-    background: rgba(120,90,255,0.15);
-    border-color: rgba(120,90,255,0.45);
-    box-shadow: 0 0 25px rgba(120,90,255,0.4);
-}
-
-.doc-title {
-    font-size: 1.6rem;
-    background: linear-gradient(90deg, #7f5bff, #4dc7ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-.doc-desc {
-    margin-top: 10px;
-    color: #bbb;
-}
-
-/* ================================================================
-   ABOUT / SUPPORT SECTION
-   ================================================================ */
-.about-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    grid-gap: 35px;
-}
-
-.about-card {
-    padding: 30px;
-    border-radius: 18px;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(150,150,255,0.15);
-    backdrop-filter: blur(12px);
-    transition: 0.25s ease;
-}
-
-.about-card:hover {
-    background: rgba(120,90,255,0.15);
-    border-color: rgba(120,90,255,0.45);
-    box-shadow: 0 0 25px rgba(120,90,255,0.4);
-}
-
-.about-title {
-    font-size: 1.7rem;
-    background: linear-gradient(120deg, #8af, #4dc7ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.about-text {
-    margin-top: 10px;
-    color: #ccc;
-}
-
-/* ================================================================
-   FOOTER
-   ================================================================ */
-.footer {
-    width: 100%;
-    padding: 60px;
-    text-align: center;
-    color: #777;
-    background: rgba(10,10,20,0.4);
-    border-top: 1px solid rgba(120,120,255,0.2);
-    backdrop-filter: blur(8px);
-}
-
-/* ================================================================
-   MASSIVE UTILITY CLASSES (for 1000+ lines)
-   Extra animations, effects, glow helpers, fillers.
-   ================================================================ */
-
-.glow {
-    box-shadow: 0 0 20px rgba(120,90,255,0.6);
-}
-.glass {
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(10px);
-}
-.neon {
-    color: #b9f;
-    text-shadow: 0 0 10px #b9f;
-}
-
-/* Random filler classes (scroll styling, spacing, etc.) */
-.spacer-50 { height: 50px; }
-.spacer-100 { height: 100px; }
-.spacer-200 { height: 200px; }
-
-.fade-in {
-    opacity: 0;
-    animation: fadeIn 1s forwards;
-}
-@keyframes fadeIn {
-    to { opacity: 1; }
-}
-
-.scale-in {
-    transform: scale(0.8);
-    opacity: 0;
-    animation: scaleIn 0.8s forwards;
-}
-@keyframes scaleIn {
-    to { transform: scale(1); opacity: 1; }
-}
-
-.breath {
-    animation: breath 3s ease-in-out infinite alternate;
-}
-@keyframes breath {
-    from { transform: scale(1); opacity: 0.9; }
-    to   { transform: scale(1.05); opacity: 1; }
-}
-
-/* Glow borders */
-.border-glow {
-    border: 1px solid rgba(150,100,255,0.4);
-    box-shadow: 0 0 20px rgba(150,100,255,0.6);
-}
-
-/* Extra random utilities to increase line count but keep clean */
-.util-a { padding: 5px; }
-.util-b { padding: 10px; }
-.util-c { padding: 20px; }
-.util-d { margin: 10px; }
-/* (Imagine 200 more utilities; space preserved) */
-
-    </style>
+    @media (max-width:880px){
+      .wrap{padding:80px 18px 60px}
+      .hero{grid-template-columns:1fr;gap:24px}
+      .nav-links{display:none}
+    }
+  </style>
 </head>
-
 <body>
 
-<!-- PARTICLE BACKGROUND -->
-<div id="tsparticles"></div>
+  <!-- Particles -->
+  <div id="tsparticles" aria-hidden="true"></div>
 
-<!-- NAVBAR -->
-<nav class="nav">
-    <div class="nav-left">
-        <!-- Inline SVG Logo -->
-        <svg width="180" height="50" viewBox="0 0 550 140">
-            <defs>
-                <linearGradient id="logoGrad" x1="0%" x2="100%">
-                    <stop offset="0%" stop-color="#7f5bff"/>
-                    <stop offset="100%" stop-color="#4dc7ff"/>
-                </linearGradient>
-            </defs>
-            <text x="0" y="100" font-family="Orbitron" font-size="110"
-                  fill="url(#logoGrad)" font-weight="900" letter-spacing="8">
-                XULLYS
-            </text>
-        </svg>
+  <!-- NAV -->
+  <header class="nav" role="banner">
+    <div class="brand">
+      <svg viewBox="0 0 200 50" aria-hidden="true"><defs><linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="var(--accent-1)"/><stop offset="1" stop-color="var(--accent-2)"/></linearGradient></defs><text x="8" y="36" font-family="Orbitron, Inter" font-weight="900" font-size="28" fill="url(#g1)">XULLYS</text></svg>
+      <span class="label">X‑GUI</span>
     </div>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#home">Home</a>
+      <a href="#features">Features</a>
+      <a href="#downloads">Download</a>
+      <a href="#docs">Docs</a>
+      <a href="#about">About</a>
+    </nav>
+  </header>
 
-    <div class="nav-right">
-        <a href="#home" class="nav-link">Home</a>
-        <a href="#downloads" class="nav-link">Download</a>
-        <a href="#docs" class="nav-link">Docs</a>
-        <a href="#about" class="nav-link">About/Support</a>
-    </div>
-</nav>
-
-<!-- ======================== HOME SECTION ======================== -->
-<section id="home" class="section home-section">
-    <div class="hero-content">
-        <h1 class="hero-title">X-GUI CLIENT, THE SLEEKEST BLOOKET EXPERIENCE</h1>
-        <p class="hero-subtitle">Welcome To X-GUI, Install The Newest Patch Now.</p>
-        <a href="#downloads" class="hero-button">Go to Downloads</a>
-    </div>
-
-    <div class="hero-3d">
-        <div class="cube">
-            <div class="cube-face front"></div>
-            <div class="cube-face back"></div>
-            <div class="cube-face left"></div>
-            <div class="cube-face right"></div>
-            <div class="cube-face top"></div>
-            <div class="cube-face bottom"></div>
+  <main class="wrap">
+    <!-- HERO -->
+    <section id="home" aria-labelledby="home-title" class="hero">
+      <div>
+        <h1 id="home-title" class="title">X‑GUI — A Clean, Modern Blooket Client</h1>
+        <p>Experience the ultimate sleek interface with fast performance, intuitive layout, and essential tools for a smooth Blooket experience.</p>
+        <a class="cta" href="#downloads">Download Now</a>
+      </div>
+      <div class="cube-wrap" aria-hidden="true">
+        <div class="cube" role="img" aria-label="Decorative cube">
+          <div class="face"></div>
         </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features" aria-labelledby="features-title">
+      <h2 id="features-title" class="section-title">Features</h2>
+      <div class="grid">
+        <div class="card"><h3>Super sleek and minimal</h3><p class="muted">X-GUI has an easy-to-use, sleek UI</p></div>
+        <div class="card"><h3>100+ Cheats</h3><p class="muted">A ton of cheats to enhance your gameplay</p></div>
+        <div class="card"><h3>Undetected</h3><p class="muted">Our advanced Anti-Ban drastically declines your chance of a ban</p></div>
+        <div class="card"><h3>Never seen before features</h3><p class="muted">We have cheats that are 100% original, no other GUI has them</p></div>
+      </div>
+    </section>
+
+    <!-- DOWNLOADS -->
+    <section id="downloads" aria-labelledby="dl-title">
+      <h2 id="dl-title" class="section-title">Downloads</h2>
+      <div class="grid">
+        <div class="card"><h3>GitHub Install</h3><p class="muted">Clone or download the latest release from GitHub.</p><a class="cta" href="https://github.com/XULL-XXX/X-GUI-BLOOKET-CLIENT">Go to GitHub</a></div>
+        <div class="card"><h3>GreasyFork</h3><p class="muted">Install as a userscript for supported browsers.</p><a class="cta" href="https://greasyfork.org/en/scripts/553301-x-gui-client-for-blooket">Open GreasyFork</a></div>
+      </div>
+    </section>
+
+    <!-- DOCUMENTATION -->
+    <section id="docs" aria-labelledby="docs-title">
+      <h2 id="docs-title" class="section-title">Documentation</h2>
+      <div class="grid">
+        <div class="card"><h3>Getting Started</h3><p class="muted">Follow the install instructions and ensure your extension permissions are correct.</p></div>
+        <div class="card"><h3>Recommended Setup</h3><p class="muted">For optimal experience, use modern browsers and minimal extensions.</p></div>
+        <div class="card"><h3>Advanced</h3><p class="muted">Customize colors and layout via CSS variables.</p></div>
+        <div class="card"><h3>Contact</h3><p class="muted">slinkingfox@outlook.com</p></div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" aria-labelledby="about-title">
+      <h2 id="about-title" class="section-title">About & Support</h2>
+      <div class="grid">
+        <div class="card"><h3>About</h3><p class="muted">X‑GUI is minimal, fast, and visually clean. Easy to use and adapt.</p></div>
+        <div class="card"><h3>Support</h3><p class="muted">Open an issue on GitHub or GreasyFork for help.</p></div>
+        <div class="card"><h3>Questions?</h3><p class="muted">Email me!</p></div>
+      </div>
+    </section>
+      <!-- FAQ -->
+      <section id="FAQ" aria-labelledby="FAQ-title">
+      <h2 id="about-title" class="section-title">Frequently Asked Questions</h2>
+      <div class="grid">
+        <div class="card"><h3>Will this work at school?</h3><p class="muted">YES! X-GUI works on ALL devices!</p></div>
+        <div class="card"><h3>WIll this get me banned?</h3><p class="muted">It depends, our advanced anti-ban system greatly reduces your chances</p></div>
+        <div class="card"><h3>What do I do if it doesn't work?</h3><p class="muted">Email me or create an issue, I will get back to you!</p></div>
+      </div>
+    </section>
+      <!-- CREDITS SECTION -->
+<section id="credits" aria-labelledby="credits-title" style="padding:60px 0;background:linear-gradient(90deg,#e0f7ff20,#f5f6fa);border-top:1px solid rgba(0,0,0,0.05);text-align:center;">
+  <h2 id="credits-title" style="font-size:28px;margin-bottom:24px;color:#06b6d4;">Credits</h2>
+  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:40px;">
+    <div style="flex:1 1 200px;max-width:220px;padding:16px;border-radius:12px;background:#fff;border:1px solid rgba(0,0,0,0.05);box-shadow:0 4px 12px rgba(0,0,0,0.05);">
+      <h3 style="margin:0 0 8px;font-size:18px;color:#3b82f6;">Lead Developer</h3>
+      <p style="margin:0;color:#6b7280;">Xullys</p>
     </div>
+    <div style="flex:1 1 200px;max-width:220px;padding:16px;border-radius:12px;background:#fff;border:1px solid rgba(0,0,0,0.05);box-shadow:0 4px 12px rgba(0,0,0,0.05);">
+      <h3 style="margin:0 0 8px;font-size:18px;color:#3b82f6;">UI / UX Designer</h3>
+      <p style="margin:0;color:#6b7280;">AuraDevv</p>
+    </div>
+    <div style="flex:1 1 200px;max-width:220px;padding:16px;border-radius:12px;background:#fff;border:1px solid rgba(0,0,0,0.05);box-shadow:0 4px 12px rgba(0,0,0,0.05);">
+      <h3 style="margin:0 0 8px;font-size:18px;color:#3b82f6;">Documentation</h3>
+      <p style="margin:0;color:#6b7280;">Xullys</p>
+    </div>
+  </div>
+  <p style="margin-top:32px;font-size:0.95rem;color:#6b7280;">This project was made possible thanks to the Blooket cheats community and other Blooket cheat devs</p>
 </section>
 
-<!-- ======================== DOWNLOADS SECTION ======================== -->
-<section id="downloads" class="section downloads-section">
-    <h1 class="section-title">Downloads</h1>
 
-    <!-- Download Cards (placeholder) -->
-    <div class="download-grid">
+    <!-- FOOTER -->
+    <footer>
+      <small>© 2025 — Xullys • Modernized, clean, and accessible interface.</small>
+    </footer>
+  </main>
 
-        <div class="download-card">
-            <h2 class="download-title">GitHub Install</h2>
-            <p class="download-desc">Install Via GitHub</p>
-            <a href="#" class="download-button">GO!</a>
-        </div>
+  <script>
+    // Navbar shadow on scroll
+    const nav = document.querySelector('.nav');
+    window.addEventListener('scroll',()=>{nav.style.boxShadow=window.scrollY>30?'0 8px 30px rgba(0,0,0,0.1)':'none'},{passive:true});
 
-        <div class="download-card">
-            <h2 class="download-title">GreasyFork</h2>
-            <p class="download-desc">Install Userscript Here</p>
-            <a href="#" class="download-button">GO!</a>
-        </div>
+    // Smooth anchor scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}})});
 
-    </div>
-</section>
-
-<!-- ======================== DOCS SECTION ======================== -->
-<section id="docs" class="section docs-section">
-    <h1 class="section-title">Documentation</h1>
-
-    <div class="docs-container">
-
-        <!-- Doc panel placeholder -->
-        <div class="doc-panel">
-            <h2 class="doc-title">Getting Started</h2>
-            <p class="doc-desc">Click On One Of The Install Methods And Follow The Instructions/p>
-        </div>
-
-        <div class="doc-panel">
-            <h2 class="doc-title">Setup For Best Experience</h2>
-            <p class="doc-desc">Make sure you have a CSP-Disabler Extension Or Use The Tampermonkey Feature</p>
-        </div>
-
-        <div class="doc-panel">
-            <h2 class="doc-title">Advanced</h2>
-            <p class="doc-desc">You Can Change The Color CSS To Your Color Of Choice/p>
-        </div>
-
-        <div class="doc-panel">
-            <h2 class="doc-title">Contact</h2>
-            <p class="doc-desc">slinkingfox@outlook.com</p>
-        </div>
-
-    </div>
-</section>
-
-<!-- ======================== ABOUT / SUPPORT SECTION ======================== -->
-<section id="about" class="section about-section">
-    <h1 class="section-title">About / Support</h1>
-
-    <div class="about-container">
-
-        <div class="about-card">
-            <h2 class="about-title">The Sleekest Blooket Experience</h2>
-            <p class="about-text">Download NOW</p>
-        </div>
-
-        <div class="about-card">
-            <h2 class="about-title">Support</h2>
-            <p class="about-text">Create An Issue On The Github Or Greasyfork</p>
-        </div>
-
-        <div class="about-card">
-            <h2 class="about-title">Contact</h2>
-            <p class="about-text">slinkingfox@outlook.com</p>
-        </div>
-
-    </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="footer">
-    © 2025 — Xullys
-</footer>
-
-<!-- MAIN JS (PART 3 + PART 4 WILL GO HERE) -->
-<script>
-/* ================================================================
-   PART 3 — MASSIVE JS FOR XULLYS INTERFACE
-   Particles, scroll animations, section triggers, hover effects
-   ================================================================ */
-
-/* -------- NAVBAR SCROLL EFFECT -------- */
-const nav = document.querySelector('.nav');
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) nav.classList.add('scrolled');
-    else nav.classList.remove('scrolled');
-});
-
-/* -------- SMOOTH SCROLL LINKS -------- */
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', e => {
-        e.preventDefault();
-        const target = document.querySelector(link.getAttribute('href'));
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-});
-
-/* -------- TS PARTICLES SETUP -------- */
-tsParticles.load("tsparticles", {
-    fpsLimit: 60,
-    background: { color: "#0a0b10" },
-    particles: {
-        number: { value: 80, density: { enable: true, area: 800 } },
-        color: { value: ["#7f5bff", "#4dc7ff", "#8df"] },
-        shape: { type: "circle" },
-        opacity: { value: 0.5, random: true },
-        size: { value: 3, random: true },
-        links: {
-            enable: true,
-            distance: 150,
-            color: "#7f5bff",
-            opacity: 0.2,
-            width: 1
-        },
-        move: {
-            enable: true,
-            speed: 2,
-            direction: "none",
-            random: false,
-            straight: false,
-            outModes: { default: "bounce" }
-        }
-    },
-    interactivity: {
-        detectsOn: "canvas",
-        events: {
-            onHover: { enable: true, mode: "repulse" },
-            onClick: { enable: true, mode: "push" },
-            resize: true
-        },
-        modes: {
-            grab: { distance: 140, links: { opacity: 0.3 } },
-            repulse: { distance: 100, duration: 0.4 },
-            push: { quantity: 4 },
-        }
-    },
-    detectRetina: true
-});
-
-/* -------- SCROLL-TRIGGERED ANIMATIONS -------- */
-const sections = document.querySelectorAll('.section');
-const options = { threshold: 0.2 };
-const observer = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
-        if(entry.isIntersecting){
-            entry.target.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
-            entry.target.querySelectorAll('.scale-in').forEach(el => el.classList.add('visible'));
-        }
-    });
-}, options);
-
-sections.forEach(section => observer.observe(section));
-
-/* -------- 3D CUBE ROTATION (optional dynamic tweak) -------- */
-const cube = document.querySelector('.cube');
-let cubeX = -20;
-let cubeY = 0;
-
-window.addEventListener('mousemove', e => {
-    const centerX = window.innerWidth/2;
-    const centerY = window.innerHeight/2;
-    const deltaX = (e.clientX - centerX) * 0.05;
-    const deltaY = (e.clientY - centerY) * 0.05;
-    cube.style.transform = `rotateX(${cubeX - deltaY}deg) rotateY(${cubeY + deltaX}deg)`;
-});
-
-/* -------- PLACEHOLDER DYNAMIC FUNCTIONS -------- */
-function loadDownloads() {
-    // Fetch download info dynamically
-    console.log("Load download placeholders...");
-}
-function loadDocs() {
-    // Fetch docs dynamically
-    console.log("Load docs placeholders...");
-}
-function loadSupport() {
-    // Fetch support/contact info dynamically
-    console.log("Load support placeholders...");
-}
-
-/* -------- EXTRA FADE-INS FOR BUTTONS & CARDS -------- */
-document.querySelectorAll('.download-card, .doc-panel, .about-card, .hero-button').forEach(el => {
-    el.classList.add('fade-in');
-});
-
-/* -------- CONTINUOUS ANIMATION LOOP (optional) -------- */
-function animateLoop(){
-    requestAnimationFrame(animateLoop);
-    // placeholder for extra JS animations (particles, icons, etc.)
-}
-animateLoop();
-
-/* -------- RANDOM UTILITIES (filler lines for 1000+ lines) -------- */
-function utilA(){console.log("utilA placeholder");}
-function utilB(){console.log("utilB placeholder");}
-function utilC(){console.log("utilC placeholder");}
-function utilD(){console.log("utilD placeholder");}
-function utilE(){console.log("utilE placeholder");}
-function utilF(){console.log("utilF placeholder");}
-function utilG(){console.log("utilG placeholder");}
-function utilH(){console.log("utilH placeholder");}
-function utilI(){console.log("utilI placeholder");}
-function utilJ(){console.log("utilJ placeholder");}
-// Repeat or extend with dummy functions to increase line count
-/* ================================================================
-   PART 4 — EXTRA SLEEK ANIMATIONS AND UTILITIES
-   Hover glows, button animations, scroll sparks, gradient effects
-   ================================================================ */
-
-/* -------- BUTTON HOVER GLOW -------- */
-document.querySelectorAll('.hero-button, .nav-link').forEach(btn => {
-    btn.addEventListener('mouseenter', () => {
-        btn.style.boxShadow = '0 0 20px #7f5bff, 0 0 40px #4dc7ff';
-        btn.style.transform = 'scale(1.05)';
-    });
-    btn.addEventListener('mouseleave', () => {
-        btn.style.boxShadow = '';
-        btn.style.transform = '';
-    });
-});
-
-/* -------- RANDOM SPARKS ON SCROLL -------- */
-window.addEventListener('scroll', () => {
-    const spark = document.createElement('div');
-    spark.classList.add('spark');
-    spark.style.left = Math.random() * window.innerWidth + 'px';
-    spark.style.top = window.scrollY + window.innerHeight * Math.random() + 'px';
-    document.body.appendChild(spark);
-    setTimeout(() => spark.remove(), 1000);
-});
-
-/* -------- FADE-IN DELAY FUNCTION -------- */
-function staggerFade(selector, delay = 100){
-    document.querySelectorAll(selector).forEach((el, i) => {
-        setTimeout(() => el.classList.add('visible'), i * delay);
-    });
-}
-staggerFade('.download-card, .doc-panel, .about-card', 150);
-
-/* -------- GRADIENT ANIMATION UTILITY -------- */
-let gradAngle = 0;
-function animateGradient(){
-    gradAngle += 0.5;
-    document.body.style.background = `linear-gradient(${gradAngle}deg, #0a0b10, #1b1c28, #7f5bff, #4dc7ff)`;
-    requestAnimationFrame(animateGradient);
-}
-// Optional toggle: animateGradient();
-
-/* -------- EXTRA 3D CUBE SPIN -------- */
-let cubeSpin = 0;
-function cubeLoop(){
-    cubeSpin += 0.2;
-    cube.style.transform = `rotateX(${cubeX - cubeSpin}deg) rotateY(${cubeY + cubeSpin}deg)`;
-    requestAnimationFrame(cubeLoop);
-}
-// Optional toggle: cubeLoop();
-
-/* -------- FADE-IN / SCALE-IN FOR NEW ELEMENTS -------- */
-const dynamicObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if(entry.isIntersecting){
-            entry.target.classList.add('visible');
-        }
-    });
-});
-document.querySelectorAll('.new-card, .new-panel').forEach(el => dynamicObserver.observe(el));
-
-/* -------- PLACEHOLDER FUNCTION EXPANSION (fill lines) -------- */
-function filler1(){console.log("filler1");}function filler2(){console.log("filler2");}
-function filler3(){console.log("filler3");}function filler4(){console.log("filler4");}
-function filler5(){console.log("filler5");}function filler6(){console.log("filler6");}
-function filler7(){console.log("filler7");}function filler8(){console.log("filler8");}
-function filler9(){console.log("filler9");}function filler10(){console.log("filler10");}
-function filler11(){console.log("filler11");}function filler12(){console.log("filler12");}
-function filler13(){console.log("filler13");}function filler14(){console.log("filler14");}
-function filler15(){console.log("filler15");}function filler16(){console.log("filler16");}
-// Repeat or copy these filler functions until file passes 1000 lines
-
-/* -------- FINAL TOUCHES -------- */
-console.log("Xullys hypermodern single-page site ready");
-
-</script>
-
+    // tsParticles minimal
+    if(window.tsParticles){tsParticles.load('tsparticles',{fpsLimit:60,fullScreen:{enable:false,zIndex:-1},particles:{number:{value:50,density:{enable:true,area:800}},color:{value:['#3b82f6','#06b6d4']},shape:{type:'circle'},opacity:{value:0.3,random:true},size:{value:3,random:true},links:{enable:true,distance:130,color:'#3b82f6',opacity:0.2,width:1},move:{enable:true,speed:1.5,outModes:{default:'bounce'}}},interactivity:{events:{onHover:{enable:true,mode:'repulse'},onClick:{enable:true,mode:'push'},resize:true},modes:{repulse:{distance:100,duration:0.4},push:{quantity:3}}},detectRetina:true}).catch(()=>{});}
+  </script>
 </body>
 </html>
