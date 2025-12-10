@@ -3,10 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>X-GUI Cheats</title>
+  <title>X-GUI Client</title>
   <!-- Favicon -->
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><linearGradient id='g' x1='0' x2='1'><stop offset='0' stop-color='%233b82f6'/><stop offset='1' stop-color='%2306b6d4'/></linearGradient><rect width='64' height='64' rx='12' fill='url(%23g)'/><text x='50%' y='55%' font-size='36' font-family='Orbitron' font-weight='900' fill='white' text-anchor='middle' alignment-baseline='middle'>X</text></svg>">
-
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><linearGradient id='g' x1='0' x2='1'><stop offset='0' stop-color='%233b82f6'/><stop offset='1' stop-color='%2306b6d4'/></linearGradient><rect width='64' height='64' rx='12' fill='url(%23g)'/><text x='50%' y='55%' font-size='36' font-family='Orbitron' font-weight='900' fill='white' text-anchor='middle' alignment-baseline='middle'>X</text></svg>">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,6 +28,16 @@
       --gap:32px;
     }
 
+    body.dark {
+      --bg:#1f2937;
+      --panel:#111827;
+      --glass:rgba(31,41,55,0.8);
+      --accent-1:#8b5cf6;
+      --accent-2:#ec4899;
+      --text-dark:#f5f6fa;
+      --text-muted:#9ca3af;
+    }
+
     /* Reset & Base */
     *{box-sizing:border-box}
     html,body{height:100%;margin:0;padding:0;}
@@ -39,6 +48,7 @@
       color:var(--text-dark);
       overflow-x:hidden;
       line-height:1.6;
+      transition:background 0.3s ease, color 0.3s ease;
     }
 
     /* Particles */
@@ -48,7 +58,7 @@
     .wrap{max-width:var(--max-width);margin:0 auto;padding:100px 32px 80px;}
 
     /* NAV */
-    .nav{position:fixed;inset:0 0 auto 0;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;z-index:50;backdrop-filter:blur(12px);background:var(--glass);border-bottom:1px solid rgba(0,0,0,0.08)}
+    .nav{position:fixed;inset:0 0 auto 0;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;z-index:50;backdrop-filter:blur(12px);background:var(--glass);border-bottom:1px solid rgba(0,0,0,0.08);transition:background 0.3s ease,border-color 0.3s ease}
     .brand{display:flex;align-items:center;gap:12px}
     .brand svg{height:36px;width:auto}
     .brand .label{font-family:Orbitron,Inter;font-weight:900;font-size:18px;color:var(--accent-1)}
@@ -56,6 +66,9 @@
     .nav-links{display:flex;gap:20px;align-items:center}
     .nav a{color:var(--text-muted);text-decoration:none;padding:8px 14px;border-radius:12px;font-weight:600;font-size:14px}
     .nav a:hover{color:#fff;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));box-shadow:0 4px 20px rgba(0,0,0,0.1)}
+
+    .dark-toggle{cursor:pointer;padding:8px 12px;border-radius:12px;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));color:#fff;font-weight:600;font-size:14px;transition:transform 0.3s ease}
+    .dark-toggle:hover{transform:scale(1.05)}
 
     /* HERO */
     .hero{display:grid;grid-template-columns:1fr 400px;gap:var(--gap);align-items:center;padding-top:60px}
@@ -69,12 +82,12 @@
     .section-title{font-size:32px;margin:0 0 24px;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));-webkit-background-clip:text;color:transparent}
 
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--gap)}
-    .card{padding:24px;border-radius:var(--radius);background:var(--panel);border:1px solid rgba(0,0,0,0.05);box-shadow:0 4px 20px rgba(0,0,0,0.05);transition:transform .28s ease,box-shadow .28s ease}
+    .card{padding:24px;border-radius:var(--radius);background:var(--panel);border:1px solid rgba(0,0,0,0.05);box-shadow:0 4px 20px rgba(0,0,0,0.05);transition:transform .28s ease,box-shadow .28s ease,background 0.3s ease,border-color 0.3s ease}
     .card:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(0,0,0,0.1)}
-    .muted{color:var(--text-muted);font-size:0.95rem}
+    .muted{color:var(--text-muted);font-size:0.95rem;transition:color 0.3s ease}
 
     /* footer */
-    footer{padding:40px 32px;text-align:center;color:var(--text-muted);border-top:1px solid rgba(0,0,0,0.05);margin-top:60px}
+    footer{padding:40px 32px;text-align:center;color:var(--text-muted);border-top:1px solid rgba(0,0,0,0.05);margin-top:60px;transition:color 0.3s ease,border-color 0.3s ease}
 
     @media (max-width:880px){
       .wrap{padding:80px 18px 60px}
@@ -100,6 +113,7 @@
       <a href="#downloads">Download</a>
       <a href="#docs">Docs</a>
       <a href="#about">About</a>
+      <span class="dark-toggle" id="darkToggle">🌙</span>
     </nav>
   </header>
 
@@ -142,7 +156,7 @@
     <section id="docs" aria-labelledby="docs-title">
       <h2 id="docs-title" class="section-title">Documentation</h2>
       <div class="grid">
-        <div class="card"><h3>Getting Started</h3><p class="muted">Follow the install instructions and ensure your extension permissions are correct.</p></div>
+        <div class="card"><h3>Getting Started</h3><p class="muted">Follow the install instructions and ensure your extension/browser permissions are correct.</p></div>
         <div class="card"><h3>Recommended Setup</h3><p class="muted">For optimal experience, use modern browsers and minimal extensions.</p></div>
         <div class="card"><h3>Advanced</h3><p class="muted">Customize colors and layout via CSS variables.</p></div>
         <div class="card"><h3>Contact</h3><p class="muted">slinkingfox@outlook.com</p></div>
@@ -158,8 +172,9 @@
         <div class="card"><h3>Questions?</h3><p class="muted">Email me!</p></div>
       </div>
     </section>
-      <!-- FAQ -->
-      <section id="FAQ" aria-labelledby="FAQ-title">
+
+    <!-- FAQ -->
+    <section id="FAQ" aria-labelledby="FAQ-title">
       <h2 id="about-title" class="section-title">Frequently Asked Questions</h2>
       <div class="grid">
         <div class="card"><h3>Will this work at school?</h3><p class="muted">YES! X-GUI works on ALL devices!</p></div>
@@ -167,26 +182,49 @@
         <div class="card"><h3>What do I do if it doesn't work?</h3><p class="muted">Email me or create an issue, I will get back to you!</p></div>
       </div>
     </section>
-      <!-- CREDITS SECTION -->
-<section id="credits" aria-labelledby="credits-title" style="padding:60px 0;background:linear-gradient(90deg,#e0f7ff20,#f5f6fa);border-top:1px solid rgba(0,0,0,0.05);text-align:center;">
-  <h2 id="credits-title" style="font-size:28px;margin-bottom:24px;color:#06b6d4;">Credits</h2>
-  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:40px;">
-    <div style="flex:1 1 200px;max-width:220px;padding:16px;border-radius:12px;background:#fff;border:1px solid rgba(0,0,0,0.05);box-shadow:0 4px 12px rgba(0,0,0,0.05);">
-      <h3 style="margin:0 0 8px;font-size:18px;color:#3b82f6;">Lead Developer</h3>
-      <p style="margin:0;color:#6b7280;">Xullys</p>
+
+    <!-- REVIEWS SECTION -->
+<section id="reviews" aria-labelledby="reviews-title">
+  <h2 id="reviews-title" class="section-title">What People Say</h2>
+  <div class="grid" style="grid-template-columns:1fr 1fr;gap:32px;">
+    <div class="card" style="display:flex;flex-direction:column;align-items:center;text-align:center;">
+      <p class="muted" style="font-style:italic;">“X-GUI changed my Blooket experience! Sleek, fast, and safe.”</p>
+      <h4 style="margin-top:12px;color:var(--accent-1);">— Gamer101</h4>
     </div>
-    <div style="flex:1 1 200px;max-width:220px;padding:16px;border-radius:12px;background:#fff;border:1px solid rgba(0,0,0,0.05);box-shadow:0 4px 12px rgba(0,0,0,0.05);">
-      <h3 style="margin:0 0 8px;font-size:18px;color:#3b82f6;">UI / UX Designer</h3>
-      <p style="margin:0;color:#6b7280;">AuraDevv</p>
+    <div class="card" style="display:flex;flex-direction:column;align-items:center;text-align:center;">
+      <p class="muted" style="font-style:italic;">“The best GUI I’ve ever used. Features are insane and undetected!”</p>
+      <h4 style="margin-top:12px;color:var(--accent-1);">— CheatMaster</h4>
     </div>
-    <div style="flex:1 1 200px;max-width:220px;padding:16px;border-radius:12px;background:#fff;border:1px solid rgba(0,0,0,0.05);box-shadow:0 4px 12px rgba(0,0,0,0.05);">
-      <h3 style="margin:0 0 8px;font-size:18px;color:#3b82f6;">Documentation</h3>
-      <p style="margin:0;color:#6b7280;">Xullys</p>
+    <div class="card" style="display:flex;flex-direction:column;align-items:center;text-align:center;">
+      <p class="muted" style="font-style:italic;">“Minimal design with maximum functionality. Love it!”</p>
+      <h4 style="margin-top:12px;color:var(--accent-1);">— UXFan</h4>
+    </div>
+    <div class="card" style="display:flex;flex-direction:column;align-items:center;text-align:center;">
+      <p class="muted" style="font-style:italic;">“Anti-ban works perfectly and everything looks amazing.”</p>
+      <h4 style="margin-top:12px;color:var(--accent-1);">— Blooketeer</h4>
     </div>
   </div>
-  <p style="margin-top:32px;font-size:0.95rem;color:#6b7280;">This project was made possible thanks to the Blooket cheats community and other Blooket cheat devs</p>
 </section>
 
+<!-- CREDITS SECTION (DARK MODE READY) -->
+<section id="credits" aria-labelledby="credits-title" style="padding:60px 0;background:linear-gradient(90deg,rgba(224,247,255,0.125),var(--bg));border-top:1px solid rgba(0,0,0,0.05);text-align:center;transition:background 0.3s ease;">
+  <h2 id="credits-title" style="font-size:28px;margin-bottom:24px;color:var(--accent-2);">Credits</h2>
+  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:40px;">
+    <div style="flex:1 1 200px;max-width:220px;padding:16px;border-radius:12px;background:var(--panel);border:1px solid rgba(0,0,0,0.05);box-shadow:0 4px 12px rgba(0,0,0,0.05);transition:background 0.3s ease,border-color 0.3s ease;">
+      <h3 style="margin:0 0 8px;font-size:18px;color:var(--accent-1);">Lead Developer</h3>
+      <p style="margin:0;color:var(--text-muted);">Xullys</p>
+    </div>
+    <div style="flex:1 1 200px;max-width:220px;padding:16px;border-radius:12px;background:var(--panel);border:1px solid rgba(0,0,0,0.05);box-shadow:0 4px 12px rgba(0,0,0,0.05);transition:background 0.3s ease,border-color 0.3s ease;">
+      <h3 style="margin:0 0 8px;font-size:18px;color:var(--accent-1);">UI / UX Designer</h3>
+      <p style="margin:0;color:var(--text-muted);">AuraDevv</p>
+    </div>
+    <div style="flex:1 1 200px;max-width:220px;padding:16px;border-radius:12px;background:var(--panel);border:1px solid rgba(0,0,0,0.05);box-shadow:0 4px 12px rgba(0,0,0,0.05);transition:background 0.3s ease,border-color 0.3s ease;">
+      <h3 style="margin:0 0 8px;font-size:18px;color:var(--accent-1);">Documentation</h3>
+      <p style="margin:0;color:var(--text-muted);">Xullys</p>
+    </div>
+  </div>
+  <p style="margin-top:32px;font-size:0.95rem;color:var(--text-muted);">This project was made possible thanks to the Blooket cheats community and other Blooket cheat devs</p>
+</section>
 
     <!-- FOOTER -->
     <footer>
@@ -200,10 +238,40 @@
     window.addEventListener('scroll',()=>{nav.style.boxShadow=window.scrollY>30?'0 8px 30px rgba(0,0,0,0.1)':'none'},{passive:true});
 
     // Smooth anchor scroll
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}})});
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',e=>{
+        const t=document.querySelector(a.getAttribute('href'));
+        if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}
+      })
+    });
 
-    // tsParticles minimal
-    if(window.tsParticles){tsParticles.load('tsparticles',{fpsLimit:60,fullScreen:{enable:false,zIndex:-1},particles:{number:{value:50,density:{enable:true,area:800}},color:{value:['#3b82f6','#06b6d4']},shape:{type:'circle'},opacity:{value:0.3,random:true},size:{value:3,random:true},links:{enable:true,distance:130,color:'#3b82f6',opacity:0.2,width:1},move:{enable:true,speed:1.5,outModes:{default:'bounce'}}},interactivity:{events:{onHover:{enable:true,mode:'repulse'},onClick:{enable:true,mode:'push'},resize:true},modes:{repulse:{distance:100,duration:0.4},push:{quantity:3}}},detectRetina:true}).catch(()=>{});}
+    // Dark mode toggle
+    const darkToggle = document.getElementById('darkToggle');
+    darkToggle.addEventListener('click',()=>{
+      document.body.classList.toggle('dark');
+    });
+
+    // tsParticles - subtle purple
+    if(window.tsParticles){
+      tsParticles.load('tsparticles',{
+        fpsLimit:60,
+        fullScreen:{enable:false,zIndex:-1},
+        particles:{
+          number:{value:50,density:{enable:true,area:800}},
+          color:{value:['#a78bfa','#c084fc']},
+          shape:{type:'circle'},
+          opacity:{value:0.3,random:true},
+          size:{value:3,random:true},
+          links:{enable:true,distance:130,color:'#a78bfa',opacity:0.2,width:1},
+          move:{enable:true,speed:1.2,outModes:{default:'bounce'}}
+        },
+        interactivity:{
+          events:{onHover:{enable:true,mode:'repulse'},onClick:{enable:true,mode:'push'},resize:true},
+          modes:{repulse:{distance:100,duration:0.4},push:{quantity:3}}
+        },
+        detectRetina:true
+      }).catch(()=>{});
+    }
   </script>
 </body>
 </html>
